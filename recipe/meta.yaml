@@ -6,25 +6,27 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 93e76da9ae7af13cccc2cd1e3b47219950c56c125cd962aaed693894af267c54
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: '{{ PYTHON }} -m pip install . -vv '
 
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
 
   run:
     - humanfriendly >=4.12
-    - python
+    - python >={{ python_min }}
     - verboselogs >=1.1
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - property_manager
 
